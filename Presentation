@@ -1,0 +1,21 @@
+Presentation
+
+- Visualizing Data
+	- Raw
+	- PCA w/ and w/o wind
+	- Isomap and tSNE w/ and w/o wind
+
+- Trying to Figure Out Data
+	- KMeans 
+		- on raw
+		- on tSNE output???
+	- GHMM
+	- Autoencoder
+	- Appending data to itself to create higher dimensional data
+		- implicit ngrams within each data value 
+		- then, run GHMM or autoencoder.
+
+- Test Methods with NGrams
+	- GHMM
+	- Autoencoder
+	- Compare to Recurrent NN
