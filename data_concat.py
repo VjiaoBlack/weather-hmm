@@ -158,6 +158,7 @@ for DATASET in ["LGA", "SFO", "MDW", "ORD"]:
 
 			deltas = np.zeros((len(test)-n-1, 147))
 
+			# TODO fix
 			for test_i in range(0, len(test)-n-1):
 				deltas[test_i] = np.abs(data[16000 + test_i + n - 1] - data[16000 + test_i + n])
 

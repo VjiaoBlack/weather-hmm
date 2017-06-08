@@ -13,122 +13,62 @@ import datetime as dt
 
 import collections
 
+import plot
+import utils
+
+DATASETS = ["LGA", "SFO", "MDW", "ORD"]
+HMM_CLASSES = [2, 4, 6, 8, 10]
+NUM_TEST = 20000
+
+np.set_printoptions(threshold=np.inf, suppress=True, precision=2)
+
+
 warnings.filterwarnings("ignore")
-for DATASET in ["LGA", "SFO", "MDW", "ORD"]:
-	# Replace the data with the specific dataset you want to examine
-	with open("data/" + DATASET + ".csv", 'rb') as MDWcsv:
+for DATASET in DATASETS:
+	with open("data/" + DATASET + ".csv", 'rb') as rawcsv:
 
+		our_csv = csv.reader(rawcsv, delimiter=',')
+		data = utils.format_data(our_csv)[0]
 
-		np.set_printoptions(threshold=np.inf, suppress=True, precision=3)
-		MDWdata_orig = csv.reader(MDWcsv, delimiter=',')
-		MDWdata_orig = np.asarray(list(MDWdata_orig))
-		# If data has "min / max / mean", just keep mean.
-		MDWdata_ = np.delete(MDWdata_orig, [0, 18, 21], 1)
-		MDWdata_[MDWdata_ == 'T'] = 0.001 # T is when there is rain but not enough to be measured
-		MDWdata_ = MDWdata_[np.all(MDWdata_ != '',axis=1)]
-
-		print(MDWdata_[0])
-
-		MDWdata_ = MDWdata_[1:]
-		_data = MDWdata_
-
-		# change degree value to an actually meaningful value... ugh
-		_data = np.concatenate((_data,np.zeros((len(_data), 1))), axis=1)
-		for i in range(0, len(_data)):
-			angle = np.radians(float(_data[i][19]))
-			_data[i][19] = np.cos(angle) * float(_data[i][16])
-			_data[i][20] = np.sin(angle) * float(_data[i][16])
-
-		MDWdata_ = MDWdata_.astype(np.float)
-		data = _data.astype(np.float)
-
-
-		print("\n\n\n" + DATASET + "#######################")
+		print("\n#####  " + DATASET + "  #####")
 		print(data.shape)
 		print
 
-		for ii in [2,4,6,10]:
+		# overall standard deviations of data
+		std = np.std(data, axis=0)
+
+		# HMM class estimates
+		train = data[0:NUM_TEST].astype(int)
+		test  = data[NUM_TEST:].astype(int)
+
+		# naive weather prediction: tomorrow has the same weather as today
+		deltas = np.zeros((len(test)-1, 21))
+		for i in range(0, len(test)-1):
+			deltas[i] = np.abs(data[NUM_TEST + i - 1] - data[NUM_TEST + i])
+
+		mean_delta = np.mean(deltas, axis=0)
+		score = np.sqrt(np.sum(np.power(mean_delta / std, 2.0)))
+		print("naive: " + str(round(score, 3)))
+		print(mean_delta)
+
+
+		for ii in HMM_CLASSES:
 			# Run Gaussian HMM
-			print("fitting to HMM and decoding ... classes=" + str(ii))
+			print("fitting to HMM, c=" + str(ii))
 
 			# Make an HMM instance and execute fit
-			GHMM = hmm.GaussianHMM(n_components=ii, covariance_type="diag", n_iter=20000).fit(data)
+			hmm_model = hmm.GaussianHMM(n_components=ii).fit(train)
 
-			# Predict the optimal sequence of internal hidden state
-			hidden_states = GHMM.predict(data)
+			deltas = np.zeros((len(test)-28, 21))
 
-			# print("done")
+			for i in range(0, len(test)-28-1):
+				# predict on window of size 28, but only take last result
+				pred_class = hmm_model.predict(test[i:i+28])[27]
+				pred_value = hmm_model.means_[pred_class]
+				deltas[i] = np.abs(pred_value - test[i + 28])
 
-			# Print trained parameters and plot
-			print("Transition matrix")
-			print(GHMM.transmat_)
-			print
+			mean_delta = np.mean(deltas, axis=0)
+			score = np.sqrt(np.sum(np.power(mean_delta / std, 2.0)))
+			print("HMM, c=" + str(round(ii, 3)) + ": " + str(round(score, 3)))
+			print(mean_delta)
 
-			# Sets the 10th position equal to the hmm class
-			adata = np.concatenate((data,np.zeros((len(data), 1))), axis=1)
-			stds = np.zeros((ii, 21)) 
-			for i in range(0, ii):
-				stds[i] = np.sqrt(np.diag(GHMM.covars_[i]))
-
-			for i in range(0,len(adata)):
-				z = (adata[i][0:21].reshape(1,21).repeat(ii,axis=0) - GHMM.means_)
-				z = z / stds
-
-				zm = np.zeros(ii)
-				for j in range(0,ii):
-					zm[j] = np.dot(z[j], z[j])
-				
-				adata[i][21] = np.argmin(zm)
-
-			train = adata[0:16000,21].astype(int)
-			test  = adata[16000:,21].astype(int)
-			ngram = collections.defaultdict(dict)
-
-			for n in [1,2,3,4,7,14]:
-				for i in range(0, len(train)-n):
-					key = tuple(train[i:i+n])
-					if train[i+1] in ngram[key]:
-						ngram[key][train[i+1]] += 1
-					else:
-						ngram[key][train[i+1]] = 1
-
-				# um. I guess then we predict using the ngrams???
-				num_right = 0 # right
-				num_wrong = 0 # wrong
-				num_error = 0 # does not exist	
-
-				deltas = np.zeros((len(test)-n-1, 21))
-
-				for test_i in range(0, len(test)-n-1):
-					key = tuple(test[test_i:test_i+n])
-
-					if key in ngram:
-						pred = max(ngram[key], key=ngram[key].get)
-
-						if pred == test[test_i+n]:
-							num_right += 1
-						else:
-							num_wrong += 1
-
-						deltas[test_i] = np.abs(GHMM.means_[pred] - data[16000 + test_i + n])
-
-					else:
-						num_error += 1
-						deltas[test_i] = np.repeat(-1, 21)
-
-				# print("right: " + str(num_right) + " |wrong: " + str(num_wrong) + "|error: " + str(num_error))
-				print("n=" + str(n)    +'\t\t{:.2f}'.format((float(num_right) / float(num_right + num_wrong + num_error))))	
-				print(np.mean(deltas[deltas[:,0] > -0.1], axis=0))
-
-
-			print("naive:")
-
-			# um. I guess then we predict using the ngrams???
-
-			deltas = np.zeros((len(test)-n-1, 21))
-
-			for test_i in range(0, len(test)-n-1):
-				deltas[test_i] = np.abs(data[16000 + test_i + n - 1] - data[16000 + test_i + n])
-
-			# print("right: " + str(num_right) + " |wrong: " + str(num_wrong) + "|error: " + str(num_error))
-			print(np.mean(deltas[deltas[:,0] > -0.1], axis=0))
