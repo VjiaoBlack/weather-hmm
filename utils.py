@@ -43,9 +43,11 @@ def format_data(csv_data):
 	# so I decide to delete incomplete data entries.
 	# Note: this /might/ mess with our model slightly, since
 	# our HMM models assume our data is taken daily. 
+	dates = dates[np.all(data != '', axis=1)]
 	data = data[np.all(data != '', axis=1)]
 
 	# change wind degree to a wind-speed weighted vector
+	wind = data[:,19]
 	data = np.concatenate((data,np.zeros((len(data), 1))), axis=1)
 	for i in range(0, len(data)):
 		angle = np.radians(float(data[i][19]))
@@ -55,4 +57,4 @@ def format_data(csv_data):
 	# convert everything to floats
 	data = data.astype(np.float)
 
-	return (data,dates)
+	return (data,dates,wind)
