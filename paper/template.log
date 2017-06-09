@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.6.8)  9 JUN 2017 03:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.6.8)  9 JUN 2017 04:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -648,14 +648,12 @@ File: ../png/vis/temperature-100tsne.png Graphic file (type png)
 Package pdftex.def Info: ../png/vis/temperature-100tsne.png used on input line 
 45.
 (pdftex.def)             Requested size: 227.62204pt x 142.26025pt.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 46.
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 
  <../png/vis/temperature-100tsne.png>]
-<../png/basic-vis/SFO-winddir-speed.png, id=15, 578.16pt x 361.35pt>
+<../png/basic-vis/SFO-winddir-speed.png, id=14, 578.16pt x 361.35pt>
 File: ../png/basic-vis/SFO-winddir-speed.png Graphic file (type png)
 
 <use ../png/basic-vis/SFO-winddir-speed.png>
@@ -663,7 +661,7 @@ Package pdftex.def Info: ../png/basic-vis/SFO-winddir-speed.png used on input l
 ine 63.
 (pdftex.def)             Requested size: 227.62204pt x 142.26025pt.
 
-<../png/basic-vis/LGA-winddir-moisture-time.png, id=16, 578.16pt x 361.35pt>
+<../png/basic-vis/LGA-winddir-moisture-time.png, id=15, 578.16pt x 361.35pt>
 File: ../png/basic-vis/LGA-winddir-moisture-time.png Graphic file (type png)
 
 <use ../png/basic-vis/LGA-winddir-moisture-time.png>
@@ -673,7 +671,7 @@ Package pdftex.def Info: ../png/basic-vis/LGA-winddir-moisture-time.png used on
 LaTeX Font Info:    Font shape `OT1/pcr/bx/n' in size <9> not available
 (Font)              Font shape `OT1/pcr/b/n' tried instead on input line 78.
 
-<../png/models/LGA-basic-temperature4.png, id=17, 578.16pt x 361.35pt>
+<../png/models/LGA-basic-temperature4.png, id=16, 578.16pt x 361.35pt>
 File: ../png/models/LGA-basic-temperature4.png Graphic file (type png)
 
 <use ../png/models/LGA-basic-temperature4.png>
@@ -682,7 +680,7 @@ Package pdftex.def Info: ../png/models/LGA-basic-temperature4.png used on input
 (pdftex.def)             Requested size: 227.62204pt x 142.26025pt.
  [2 <../png/basic-vis/SFO-winddir-speed.png> <../png/basic-vis/LGA-winddir-mois
 ture-time.png> <../png/models/LGA-basic-temperature4.png>]
-<../png/models/LGA-concat-temperature4.png, id=25, 578.16pt x 361.35pt>
+<../png/models/LGA-concat-temperature4.png, id=24, 578.16pt x 361.35pt>
 File: ../png/models/LGA-concat-temperature4.png Graphic file (type png)
 
 <use ../png/models/LGA-concat-temperature4.png>
@@ -694,7 +692,7 @@ t line 158.
 LaTeX Warning: Reference `fig:LGA_basic' on page 3 undefined on input line 165.
 
 
-<../png/models/LGA-timeless-cuberootrain4.png, id=26, 578.16pt x 361.35pt>
+<../png/models/LGA-timeless-cuberootrain4.png, id=25, 578.16pt x 361.35pt>
 File: ../png/models/LGA-timeless-cuberootrain4.png Graphic file (type png)
 
 <use ../png/models/LGA-timeless-cuberootrain4.png>
@@ -703,7 +701,7 @@ nput line 170.
 (pdftex.def)             Requested size: 227.62204pt x 142.26025pt.
  [3 <../png/models/LGA-concat-temperature4.png> <../png/models/LGA-timeless-cub
 erootrain4.png>]
-<../png/models/LGA-timeless-pressure4.png, id=34, 578.16pt x 361.35pt>
+<../png/models/LGA-timeless-pressure4.png, id=33, 578.16pt x 361.35pt>
 File: ../png/models/LGA-timeless-pressure4.png Graphic file (type png)
 
 <use ../png/models/LGA-timeless-pressure4.png>
@@ -715,7 +713,7 @@ Overfull \hbox (27.26503pt too wide) in paragraph at lines 196--205
  [][] 
  []
 
-<../png/models/LGA-delta-humidity2.png, id=35, 578.16pt x 361.35pt>
+<../png/models/LGA-delta-humidity2.png, id=34, 578.16pt x 361.35pt>
 File: ../png/models/LGA-delta-humidity2.png Graphic file (type png)
 
 <use ../png/models/LGA-delta-humidity2.png>
@@ -723,7 +721,7 @@ Package pdftex.def Info: ../png/models/LGA-delta-humidity2.png used on input li
 ne 219.
 (pdftex.def)             Requested size: 227.62204pt x 142.26025pt.
 
-<../png/analysis/LGA.png, id=36, 602.25pt x 372.39125pt>
+<../png/analysis/LGA.png, id=35, 602.25pt x 372.39125pt>
 File: ../png/analysis/LGA.png Graphic file (type png)
 
 <use ../png/analysis/LGA.png>
@@ -761,13 +759,13 @@ LaTeX Warning: There were undefined references.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 294.
  ) 
 Here is how much of TeX's memory you used:
- 12917 strings out of 494953
- 236605 string characters out of 6180978
+ 12913 strings out of 494953
+ 236562 string characters out of 6180978
  278977 words of memory out of 5000000
- 16016 multiletter control sequences out of 15000+600000
- 32425 words of font info for 80 fonts, out of 8000000 for 9000
+ 16014 multiletter control sequences out of 15000+600000
+ 30796 words of font info for 78 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 48i,8n,42p,10390b,329s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 48i,8n,42p,10390b,315s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fo
@@ -775,13 +773,12 @@ nts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/c
 ourier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/urw/times/utmri8a.pfb>
-Output written on template.pdf (5 pages, 1479901 bytes).
+e/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on template.pdf (5 pages, 1474752 bytes).
 PDF statistics:
- 79 PDF objects out of 1000 (max. 8388607)
- 44 compressed objects within 1 object stream
+ 75 PDF objects out of 1000 (max. 8388607)
+ 41 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

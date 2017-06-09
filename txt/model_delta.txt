@@ -1,4 +1,13 @@
 
+#################################
+#/-----------------------------\#
+#  NOTE: MEANS ARE ALL DELTAS.  #
+#\-----------------------------/#
+#################################
+
+(not state means, but rather means of deltas since last data point, within the state)
+
+
 #####       LGA     #####
 (25103, 21)
 
