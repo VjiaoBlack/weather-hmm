@@ -15,13 +15,11 @@
 % 
 \begin{abstract}
 
-Modern weather forecasting is largely accomplished through the use of highly sophisticated and complex physics-based weather simulations run on data retrieved from a network of satellites and official weather stations. Although there has been research done in applying neural networks of various types (GANs, RNNs, CNNs) to predicting certain aspects of weather, particularly rainfall, there hasn't been much research into applying basic statistical models to more general weather data. 
+Modern weather forecasting is largely accomplished through the use of highly sophisticated and complex physics-based weather simulations\cite{NWP} run on data retrieved from a network of satellites and official weather stations\cite{weatherstats}. Although there has been research done in applying neural networks of various types (GANs, RNNs, CNNs) to predicting certain aspects of weather, particularly rainfall, there hasn't been much research into applying basic statistical models to more general weather data. 
 
-In this paper, I visualize and examine daily weather data from the past 60 years at 4 airports in the US, fit HMMs of different hidden classes to the data with the Baum-Welch algorithm, and test the quality of the model by comparing its 1-day forecasting accuracy with naive forecasting and historical weather forecasting statistics. 
+In this paper, I visualize and examine daily weather data from the past 60 years at 4 airports in the US, fit HMMs of different hidden classes to the data with the Baum-Welch algorithm, and test the quality of the model by comparing its 1-day forecasting accuracy with naive forecasting and historical weather forecasting statistics. In addition to the main test with learning HMM parameters from the 20-odd-dimensional weather data, I also attempted to modulate the weather data in various ways to attempt to increase the resultant model's 1-day forecasting accuracy.
 
 I chose to use HMMs as my main model because they are relatively transparent (as compared to many neural network implementations) and simple in operation, while the hidden states in an HMM offers an additional layer of depth to the model in parsing the data.
-
-In additional to the main test with learning HMM parameters from the 20-odd-dimensional weather data, I also attempted to modulate the weather data in various ways to attempt to increase the resultant model's 1-day forecasting accuracy. These different transformations included training on data without strongly temporal dimensions, data where each point has the past week of data concatenated onto it, and data where each point represents the linear change in weather statistics from the previous day. Only one of these methods (the final 'delta' method) routinely beat the 'naive' method, where we assume tomorrow's weather is the same as today's.
 \end{abstract}
 
 \noindent\textbf{Index Terms}: weather prediction, clustering, hidden markov models
@@ -77,7 +75,7 @@ To solve this, I simply re-cast periodic information such as date and wind direc
 
 It should first be noted that I'm using the \texttt{matplotlib}'s \texttt{\textbf{inferno}} colormap, which plots from dark purple through reddish, orange, and light yellow.
 
-Given 20 dimensions of data, there isn't an immediately obvious "correct" axis to graph. Thus, I start off by applying both 2D and 3D PCA to the data, in addition to graphing a few interesting dimensions (I picked temperature, humidity, and windspeed) against time of year.
+There isn't an immediately obvious "correct" axis to graph. Thus, I start off by applying both 2D and 3D PCA to the data, in addition to graphing a few interesting dimensions (I picked temperature, humidity, and windspeed) against time of year.
 
 \subsection{Raw Data}
 All of the simple graphs of the raw data showed similar, if not identical patterns; all cities seem to experience a minor month-long dip in humidity starting in April and October. Temperature peaks around August and is lowest in February. 
@@ -89,9 +87,9 @@ In addition, most of the points out-of-cluster seem to be of high humidity. LGA 
 
 \subsection{Dimensionality Reduction, Clustering}
 
-Running PCA on the data didn't exactly give much insight, besides how weather data has a lot of symmetric variation in a few metrics, and then lots of uneven distributions in other metrics. PCA in 3 dimensions simply returned a rough squashed ball, with the three dimensions representing wind direction, temperature, and humidity. 
+Running PCA on the data didn't give much insight, besides how weather data has symmetric variation in many metrics (humidity, temperature, air pressure), and then lots of uneven distributions in other metrics (rainfall, wind speed).\cite{pca} PCA in 3 dimensions simply returned a rough squashed ball, with the three dimensions representing wind direction, temperature, and humidity.
 
-On the other hand, tSNE gave some slightly better results. It was difficult to strike a balance between a large perplexity to reduce overclustering, and a small perplexity to pick out details --- since weather patterns aren't likely to be evenly distributed, too large of a perplexity would have ignored smaller weather patterns. In the end, I decided to err on the side of large perplexity. The smaller values kept giving me overclustered data roughly in the same shape as the large-perplexity tSNE. The result is Figure~\ref{fig:15tsne_temp}, of MDW. As you can see, the data is roughly continuous with temperature, as you'd expect --- temperature changes shouldn't happen too quickly. The data seems to roughly represent summer, winter, and an intermediary circular blob on top representing mid-fall and mid-spring (which are similar data-wise as you will see). 
+On the other hand, tSNE gave some slightly better results. It was difficult to strike a balance between a large perplexity to reduce overclustering, and a small perplexity to pick out details --- since weather patterns aren't likely to be evenly distributed, too large of a perplexity would have ignored smaller weather patterns.\cite{tsne} In the end, I decided to err on the side of large perplexity. The smaller values kept giving me overclustered data roughly in the same shape as the large-perplexity tSNE. The result is Figure~\ref{fig:15tsne_temp}, of MDW. As you can see, the data is roughly continuous with temperature, as you'd expect --- temperature changes shouldn't happen too quickly. The data seems to roughly represent summer, winter, and an intermediary circular blob on top representing mid-fall and mid-spring (which are similar data-wise as you will see). 
 
 
 \begin{figure}[t]
@@ -136,6 +134,8 @@ On the other hand, tSNE gave some slightly better results. It was difficult to s
 \section{HMM models, Analysis}
 
 By far the most interesting analyses are to be found within analyzing the HMM models produced. I ran each model for each airport 5 times, for each number of hidden states $n=[2,4,6,8,10]$. For each model, in addition to examining the transition matrix and hidden state means, I also extracted the most likely sequence of states from the data, and graphed the state associated with each point (via color) on top of the actual point's location on the graph to aid in visualization. Some of these classes are easier to understand (like concat's classes) while others are a bit more obscure (like delta's classes), but each of them has its own reasoning hidden in the data. I decided to pull from LGA for all of these graphs simply because these illustrate my points the best --- all the other images are in the zip folder, within \texttt{png/models/}.
+
+Each HMM model I used starts off as a blank model with a diagonal covariance matrix. Then, I use hmmlearn's Baum-Welch algorithm to learn the model parameters with the EM algorithm.
 
 
 \subsection{Basic}
@@ -237,13 +237,13 @@ This model uses the deltas of the data instead of the data itself. That is, I co
 
 This is implicitly similar to the timeless model, since taking temperature and wind deltas significantly reduces their temporal dependency, but by taking deltas instead of removing information dimensions altogether, this method preserves more of the raw data.
 
-If you look at Figure~\ref{fig:LGA_delta}, you'll see that these states don't seem to be easily discernable with respect to humidity. This actually makes sense --- since the model is trained off of humidity differences instead of absolute humidity, it is far more sensitive to humidity changes rather than total humidity. Humidity changes are also largely uncorrelated to total humidity, since humidity is a continuous variable under-the-hood. 
+If you look at Figure~\ref{fig:LGA_delta}, we see that these states don't seem to be easily discernable with respect to humidity. This actually makes sense --- since the model is trained off of humidity differences instead of absolute humidity, it is far more sensitive to humidity changes rather than total humidity. Humidity changes are also largely uncorrelated to total humidity, since humidity is a continuous variable under-the-hood. 
 
 However, these two opaque states managed to beat the naive model by a small margin. In fact, for all airports, all delta models (for any number of hidden states I tested) beat the naive model. To understand why, we have to look at the model's transition matrix and state means in Table~\ref{tab:delta}.
 
 State 0 refers to a slowly warming state, and state 1 refers to a rapid temperature drop. Since the temperature mostly stays consistent year to year (global warming is not yet rapid enough to affect that assumption), we know immediately that state 0 occurs about 10 times more than state 1. However, that also means that state 1 refers to a much more drastic change in state than state 0 --- humidity drops, visibility rises, rain decreases (although, negligbly), and clouds clear up.
 
-These are all signs of a high-pressure system. Although other models have clearer states of "dry and cold" or "wet and rainy", with 2 states, the delta model has already uncovered high and low pressure systems. Now, note that these systems don't have to be absolute --- merely relative. The pressure vs time graph for the delta model doesn't outline a separation between high-pressure days and low-pressure days --- rather, the model learns pressure systems as a relative affect.
+These are all signs of a high-pressure system.\cite{highpressure} Although other models have clearer states of "dry and cold" or "wet and rainy", with 2 states, the delta model has already uncovered high and low pressure systems. Now, note that these systems don't have to be absolute --- merely relative. The pressure vs time graph for the delta model doesn't outline a separation between high-pressure days and low-pressure days --- rather, the model learns pressure systems as a relative affect.
 
 
 
@@ -255,24 +255,11 @@ Then again, neither is the naive model!
 \qquad
 \\
 \qquad
+\\
+\qquad
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\\
+\qquad
 
 
 
@@ -284,11 +271,31 @@ Then again, neither is the naive model!
 \bibliography{mybib}
 
 \begin{thebibliography}{9}
-\bibitem[1]{Davis80-COP}
-  Audrey\ W.\ Zhu and Halton\ Pi
+\bibitem[1]{weatherstats}
+  L.\ Maaten and G.\ Hinton
   ``A Method for Improving the Accuracy of Weather Forecasts Based on a Comprehensive Statistical Analysis of Historical Data for the Contiguous United States,''
-  \textit{ J Climatol Weather Forecasting }, vol.~2, 2014.
+  \textit{ Journal of Climatol Weather Forecasting }, vol.~2, 2014.
+
+\bibitem[2]{tsne}
+  A.\ W.\ Zhu and H.\ Pi
+  ``Visualizing Data using t-SNE,''
+  \textit{Journal of Machine Learning Research}, vol.~1, p1-48, 2008.
+
+\bibitem[3]{pca}
+  C.\ Bishop
+  ``Pattern Recognition and Machine Learning,'' ,2006.
+
+\bibitem[4]{NWP}
+  T.\ Auligné, A.\ P.\ McNally, and D.\ P.\ Dee
+  ``Adaptive bias correction for satellite data in a numerical weather prediction system,''
+  \textit{Quarterly Journal of the Royal Meteorological Society}, 2007
+
+\bibitem[5]{highpressure}
+  ``High and Low Pressure Systems''
+  \textit{Australian Government, Bureau of Meteorology}, accessed 2017
+
 \end{thebibliography}
 
 
 \end{document}
+

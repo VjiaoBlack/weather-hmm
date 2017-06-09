@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.6.8)  9 JUN 2017 04:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.6.8)  9 JUN 2017 04:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -646,7 +646,7 @@ File: ../png/vis/temperature-100tsne.png Graphic file (type png)
 
 <use ../png/vis/temperature-100tsne.png>
 Package pdftex.def Info: ../png/vis/temperature-100tsne.png used on input line 
-45.
+43.
 (pdftex.def)             Requested size: 227.62204pt x 142.26025pt.
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
@@ -658,7 +658,7 @@ File: ../png/basic-vis/SFO-winddir-speed.png Graphic file (type png)
 
 <use ../png/basic-vis/SFO-winddir-speed.png>
 Package pdftex.def Info: ../png/basic-vis/SFO-winddir-speed.png used on input l
-ine 63.
+ine 61.
 (pdftex.def)             Requested size: 227.62204pt x 142.26025pt.
 
 <../png/basic-vis/LGA-winddir-moisture-time.png, id=15, 578.16pt x 361.35pt>
@@ -666,21 +666,21 @@ File: ../png/basic-vis/LGA-winddir-moisture-time.png Graphic file (type png)
 
 <use ../png/basic-vis/LGA-winddir-moisture-time.png>
 Package pdftex.def Info: ../png/basic-vis/LGA-winddir-moisture-time.png used on
- input line 71.
+ input line 69.
 (pdftex.def)             Requested size: 227.62204pt x 142.26025pt.
 LaTeX Font Info:    Font shape `OT1/pcr/bx/n' in size <9> not available
-(Font)              Font shape `OT1/pcr/b/n' tried instead on input line 78.
+(Font)              Font shape `OT1/pcr/b/n' tried instead on input line 76.
 
 <../png/models/LGA-basic-temperature4.png, id=16, 578.16pt x 361.35pt>
 File: ../png/models/LGA-basic-temperature4.png Graphic file (type png)
 
 <use ../png/models/LGA-basic-temperature4.png>
 Package pdftex.def Info: ../png/models/LGA-basic-temperature4.png used on input
- line 99.
+ line 97.
 (pdftex.def)             Requested size: 227.62204pt x 142.26025pt.
  [2 <../png/basic-vis/SFO-winddir-speed.png> <../png/basic-vis/LGA-winddir-mois
 ture-time.png> <../png/models/LGA-basic-temperature4.png>]
-<../png/models/LGA-concat-temperature4.png, id=24, 578.16pt x 361.35pt>
+<../png/models/LGA-concat-temperature4.png, id=26, 578.16pt x 361.35pt>
 File: ../png/models/LGA-concat-temperature4.png Graphic file (type png)
 
 <use ../png/models/LGA-concat-temperature4.png>
@@ -692,7 +692,7 @@ t line 158.
 LaTeX Warning: Reference `fig:LGA_basic' on page 3 undefined on input line 165.
 
 
-<../png/models/LGA-timeless-cuberootrain4.png, id=25, 578.16pt x 361.35pt>
+<../png/models/LGA-timeless-cuberootrain4.png, id=27, 578.16pt x 361.35pt>
 File: ../png/models/LGA-timeless-cuberootrain4.png Graphic file (type png)
 
 <use ../png/models/LGA-timeless-cuberootrain4.png>
@@ -728,41 +728,58 @@ File: ../png/analysis/LGA.png Graphic file (type png)
 Package pdftex.def Info: ../png/analysis/LGA.png used on input line 226.
 (pdftex.def)             Requested size: 227.62204pt x 140.74872pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 253--258
+Underfull \hbox (badness 10000) in paragraph at lines 253--260
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 253--258
+Underfull \hbox (badness 10000) in paragraph at lines 253--260
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 253--260
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.262 \qquad
+            
+? 
 No file template.bbl.
 
-Underfull \vbox (badness 3872) has occurred while \output is active []
+Underfull \vbox (badness 2818) has occurred while \output is active []
 
  [4 <../png/models/LGA-timeless-pressure4.png> <../png/models/LGA-delta-humidit
 y2.png> <../png/analysis/LGA.png (PNG copy)>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 294.
+Missing character: There is no Ã in font ptmr7t!
+Missing character: There is no © in font ptmr7t!
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 300.
 Package atenddvi Info: Last page = 5.
  [5
 
 ]
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 294.
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 300.
  (./template.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 294.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 294.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 300.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 300.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 294.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 300.
  ) 
 Here is how much of TeX's memory you used:
- 12913 strings out of 494953
- 236562 string characters out of 6180978
- 278977 words of memory out of 5000000
- 16014 multiletter control sequences out of 15000+600000
+ 12917 strings out of 494953
+ 236593 string characters out of 6180978
+ 277989 words of memory out of 5000000
+ 16018 multiletter control sequences out of 15000+600000
  30796 words of font info for 78 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  48i,8n,42p,10390b,315s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -775,7 +792,7 @@ ourier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on template.pdf (5 pages, 1474752 bytes).
+Output written on template.pdf (5 pages, 1475783 bytes).
 PDF statistics:
  75 PDF objects out of 1000 (max. 8388607)
  41 compressed objects within 1 object stream
